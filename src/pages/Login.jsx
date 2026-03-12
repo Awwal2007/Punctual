@@ -1,23 +1,27 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogIn, User, Lock, Mail } from 'lucide-react';
+import { LogIn, User, Lock, Mail, Loader2 } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
     try {
       const user = await login(email, password);
       if (user.role === 'teacher') navigate('/teacher-dashboard');
       else navigate('/student-dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,9 +66,19 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full btn-premium py-5 text-xl mt-6 shadow-2xl shadow-indigo-200"
+            disabled={isLoading}
+            className={`w-full btn-premium py-5 text-xl mt-6 shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 transition-all ${
+              isLoading ? 'opacity-70 cursor-not-allowed scale-[0.98]' : ''
+            }`}
           >
-            Sign In
+            {isLoading ? (
+              <>
+                <Loader2 className="h-6 w-6 animate-spin" />
+                <span>Signing In...</span>
+              </>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
 
