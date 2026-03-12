@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Routes, Route, NavLink, useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 import { Layout, QrCode, LogOut, Clock, CheckCircle, AlertCircle, Users, Menu, X } from 'lucide-react';
 import { Html5Qrcode } from 'html5-qrcode';
+import { AuthContext } from '../context/AuthContext';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.clear();
+    logout();
     navigate('/login');
   };
 
@@ -116,8 +118,10 @@ const StudentDashboard = () => {
 
 const StudentOverview = () => {
   const [history, setHistory] = useState([]);
+  const [classes, setClasses] = useState([]);
   useEffect(() => {
     api.get('/attendance/history').then(res => setHistory(res.data));
+    api.get('/classes').then(res => setClasses(res.data));
   }, []);
 
   return (
@@ -146,9 +150,28 @@ const StudentOverview = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Enrolled</span>
           </div>
           <h3 className="text-slate-500 font-bold text-sm tracking-wide">My Classes</h3>
-          <p className="text-4xl font-black text-slate-800 mt-1">0</p>
+          <p className="text-4xl font-black text-slate-800 mt-1">{classes.length}</p>
         </div>
       </div>
+
+      {classes.length > 0 && (
+        <div className="mb-10 animate-in slide-in-from-bottom duration-500">
+          <h2 className="text-xl font-black text-slate-800 mb-4 px-2 uppercase tracking-tight text-[10px] text-slate-400">Enrolled Classes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {classes.map(c => (
+              <div key={c._id} className="card-premium p-6 flex items-center justify-between group hover:bg-white transition-all">
+                <div>
+                  <h3 className="font-black text-slate-800">{c.name}</h3>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{c.section || 'General'}</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <CheckCircle className="h-4 w-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="card-premium p-8 md:p-12 bg-linear-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white relative overflow-hidden">
         <div className="relative z-10 text-center md:text-left">
@@ -169,7 +192,8 @@ const StudentOverview = () => {
 
 
 const Scanner = () => {
-  const [status, setStatus] = useState({ type: '', message: '' });
+  const [status, setStatus] = useState({ type: '', message: '', notEnrolled: false, classId: '', className: '' });
+  const [joining, setJoining] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const scannerRef = useRef(null);
   const navigate = useNavigate();
@@ -196,15 +220,25 @@ const Scanner = () => {
               }
               const data = JSON.parse(decodedText);
               const res = await api.post('/attendance/mark', { sessionId: data.sessionId });
-              setStatus({ type: 'success', message: res.data.message });
+              setStatus({ type: 'success', message: res.data.message, notEnrolled: false });
             } catch (err) {
-              setStatus({ type: 'error', message: err.response?.data?.message || 'Invalid QR or already marked' });
-              // Retry after delay
-              setTimeout(() => {
-                if (scannerRef.current && !scannerRef.current.isScanning) {
-                  startScanner();
-                }
-              }, 3000);
+              if (err.response?.status === 403 && err.response?.data?.notEnrolled) {
+                setStatus({ 
+                  type: 'error', 
+                  message: err.response.data.message,
+                  notEnrolled: true,
+                  classId: err.response.data.classId,
+                  className: err.response.data.className
+                });
+              } else {
+                setStatus({ type: 'error', message: err.response?.data?.message || 'Invalid QR or already marked', notEnrolled: false });
+                // Retry after delay
+                setTimeout(() => {
+                  if (scannerRef.current && !scannerRef.current.isScanning) {
+                    startScanner();
+                  }
+                }, 3000);
+              }
             }
           },
           () => {} // Ignore scan errors
@@ -232,6 +266,20 @@ const Scanner = () => {
     navigate('/student-dashboard');
   };
 
+  const handleJoinClass = async () => {
+    setJoining(true);
+    try {
+      await api.post(`/classes/${status.classId}/join`);
+      setStatus({ type: 'success', message: `Successfully joined ${status.className}!`, notEnrolled: false });
+      // Redirect after a short delay
+      setTimeout(() => navigate('/student-dashboard'), 2000);
+    } catch (err) {
+      setStatus({ ...status, message: 'Failed to join class. Please try again.' });
+    } finally {
+      setJoining(false);
+    }
+  };
+
   return (
     <div className="max-w-xl mx-auto pt-6 px-4 pb-20">
       <div className="flex items-center justify-between mb-8">
@@ -248,9 +296,29 @@ const Scanner = () => {
         <div id="reader" className="mb-8 rounded-3xl overflow-hidden shadow-inner bg-slate-950 border-4 border-slate-100 min-h-[300px]"></div>
         
         {status.message && (
-          <div className={`p-6 rounded-2xl flex items-center text-lg font-bold mb-6 animate-in zoom-in duration-300 ${status.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-            {status.type === 'success' ? <CheckCircle className="mr-3 h-6 w-6" /> : <AlertCircle className="mr-3 h-6 w-6" />}
-            {status.message}
+          <div className="space-y-4 mb-6">
+            <div className={`p-6 rounded-2xl flex items-center text-lg font-bold animate-in zoom-in duration-300 ${status.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+              {status.type === 'success' ? <CheckCircle className="mr-3 h-6 w-6" /> : <AlertCircle className="mr-3 h-6 w-6" />}
+              {status.message}
+            </div>
+            
+            {status.notEnrolled && (
+              <div className="p-6 bg-indigo-50 rounded-2xl border-2 border-indigo-100 flex flex-col items-center animate-in slide-in-from-top duration-500">
+                <p className="text-indigo-900 font-bold text-center mb-4">Would you like to register for {status.className}?</p>
+                <button 
+                  onClick={handleJoinClass}
+                  disabled={joining}
+                  className="w-full btn-premium py-4 flex items-center justify-center"
+                >
+                  {joining ? (
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                  ) : (
+                    <Users className="h-5 w-5 mr-2" />
+                  )}
+                  {joining ? 'Joining...' : 'Join Class Now'}
+                </button>
+              </div>
+            )}
           </div>
         )}
 

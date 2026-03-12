@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route, NavLink, useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 import { Layout, Users, BookOpen, QrCode, LogOut, Plus, ChevronRight, BarChart3, Menu, X, Download, FileDown } from 'lucide-react';
 import { Line } from 'react-chartjs-2';
+import { AuthContext } from '../context/AuthContext';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,6 +31,7 @@ const TeacherDashboard = () => {
   const [classes, setClasses] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   useEffect(() => {
     fetchClasses();
@@ -41,7 +43,7 @@ const TeacherDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    logout();
     navigate('/login');
   };
 
@@ -195,6 +197,7 @@ const ClassesManager = ({ classes, refresh }) => {
   const [qrUrl, setQrUrl] = useState('');
   const [expiresAt, setExpiresAt] = useState(null);
   const [timeLeft, setTimeLeft] = useState('');
+  const [expandedClass, setExpandedClass] = useState(null);
 
   useEffect(() => {
     let timer;
@@ -305,7 +308,8 @@ const ClassesManager = ({ classes, refresh }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {classes.length > 0 ? classes.map(c => (
-          <div key={c._id} className="card-premium p-6 md:p-8 group flex flex-col sm:flex-row justify-between items-center gap-6 hover:bg-slate-50 transition-all">
+          <React.Fragment key={c._id}>
+            <div className="card-premium p-6 md:p-8 group flex flex-col sm:flex-row justify-between items-center gap-6 hover:bg-slate-50 transition-all">
             <div className="text-center sm:text-left">
               <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.4)]"></span>
@@ -313,11 +317,57 @@ const ClassesManager = ({ classes, refresh }) => {
               </div>
               <h3 className="text-2xl font-black text-slate-800 tracking-tight">{c.name}</h3>
               <p className="text-slate-500 font-bold mt-1 uppercase tracking-wider text-[10px]">{c.section || 'General'}</p>
+              
+              <button 
+                onClick={() => setExpandedClass(expandedClass === c._id ? null : c._id)}
+                className="mt-4 flex items-center text-indigo-600 font-bold text-xs uppercase tracking-widest hover:text-indigo-800 transition-colors"
+              >
+                <Users className="h-4 w-4 mr-2" />
+                {c.students?.length || 0} Registered Students
+                <ChevronRight className={`h-4 w-4 ml-1 transition-transform ${expandedClass === c._id ? 'rotate-90' : ''}`} />
+              </button>
             </div>
-            <button className="flex items-center px-6 py-4 bg-indigo-50 text-indigo-700 rounded-2xl font-black hover:bg-indigo-600 hover:text-white transition-all w-full sm:w-auto justify-center" onClick={() => generateQR(c._id)}>
-              <QrCode className="h-5 w-5 mr-3" /> QR
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <button className="flex items-center px-6 py-4 bg-indigo-50 text-indigo-700 rounded-2xl font-black hover:bg-indigo-600 hover:text-white transition-all justify-center shadow-sm" onClick={() => generateQR(c._id)}>
+                <QrCode className="h-5 w-5 mr-3" /> QR
+              </button>
+            </div>
           </div>
+
+          {/* Expanded Student List */}
+          {expandedClass === c._id && (
+            <div className="col-span-1 md:col-span-2 card-premium p-0 mb-8 border border-indigo-100 overflow-hidden animate-in slide-in-from-top duration-500">
+              <div className="bg-indigo-50/50 p-4 border-b border-indigo-100 flex items-center justify-between">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-900">Registered Students - {c.name}</h4>
+                <Users className="h-4 w-4 text-indigo-400" />
+              </div>
+              <div className="max-h-64 overflow-y-auto">
+                {c.students?.length > 0 ? (
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-50">
+                        <th className="px-6 py-4">Name</th>
+                        <th className="px-6 py-4">Email</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                      {c.students.map(student => (
+                        <tr key={student._id} className="hover:bg-slate-50/50 transition-colors">
+                          <td className="px-6 py-4 font-bold text-slate-700">{student.name}</td>
+                          <td className="px-6 py-4 text-slate-500 text-sm">{student.email}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="p-10 text-center text-slate-400 italic">
+                    No students registered for this class yet.
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          </React.Fragment>
         )) : (
           <div className="col-span-1 md:col-span-2 card-premium p-20 text-center flex flex-col items-center">
             <BookOpen className="h-16 w-16 text-slate-200 mb-6" />
