@@ -97,7 +97,7 @@ const StudentDashboard = () => {
         </nav>
 
         <div className="mt-auto pt-6 border-t border-slate-100">
-          <button onClick={handleLogout} className="w-full flex items-center p-4 text-red-600 hover:bg-red-50 rounded-2xl transition-colors font-bold">
+          <button onClick={handleLogout} className="w-full flex items-center p-4 text-red-600 hover:bg-red-50 rounded-2xl transition-colors font-bold cursor-pointer">
             <LogOut className="h-5 w-5 mr-3" />
             Logout
           </button>

@@ -12,6 +12,7 @@ const Signup = () => {
     role: params.get('role') || 'student'
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('')
   const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -97,8 +98,8 @@ const Signup = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full btn-premium py-5 text-xl mt-6 shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 transition-all ${
-              isLoading ? 'opacity-70 cursor-not-allowed scale-[0.98]' : ''
+            className={`w-full btn-premium py-4 text-xl mt-2 shadow-2xl shadow-indigo-200 flex  items-center justify-center gap-3 transition-all ${
+              isLoading ? 'opacity-70 cursor-not-allowed scale-[0.98]' : 'cursor-pointer'
             }`}
           >
             {isLoading ? (
@@ -112,7 +113,7 @@ const Signup = () => {
           </button>
         </form>
 
-        <p className="text-center mt-12 text-slate-500 font-medium">
+        <p className="text-center mt-4 text-slate-500 font-medium">
           Already have an account? <Link to="/login" className="text-indigo-600 font-black hover:underline ml-2">Sign In</Link>
         </p>
       </div>

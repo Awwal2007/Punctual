@@ -223,7 +223,7 @@ const LandingPage = () => {
               <button 
                 onClick={handleInstallClick}
                 disabled={!isInstallable}
-                className={`w-full py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 ${
+                className={`w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 ${
                   isInstallable 
                   ? 'bg-indigo-600 text-white shadow-xl hover:bg-indigo-700 hover:scale-105' 
                   : 'bg-slate-200 text-slate-400 cursor-not-allowed'

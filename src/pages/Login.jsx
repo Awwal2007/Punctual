@@ -68,7 +68,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full btn-premium py-5 text-xl mt-6 shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 transition-all ${
+            className={`w-full btn-premium py-4 text-xl mt-6 shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 transition-all ${
               isLoading ? 'opacity-70 cursor-not-allowed scale-[0.98]' : ''
             }`}
           >
