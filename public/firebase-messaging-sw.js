@@ -7,12 +7,12 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compa
 // For now, we use a placeholder that matches the manifest names.
 
 firebase.initializeApp({
-  apiKey: "PLACEHOLDER",
-  authDomain: "PLACEHOLDER",
-  projectId: "PLACEHOLDER",
-  storageBucket: "PLACEHOLDER",
-  messagingSenderId: "PLACEHOLDER",
-  appId: "PLACEHOLDER"
+  apiKey: "AIzaSyCkRgUiEZza4uF37PV5EVYkbuWkeqZvZOQ",
+  authDomain: "punctual-c7d27.firebaseapp.com",
+  projectId: "punctual-c7d27",
+  storageBucket: "punctual-c7d27.firebasestorage.app",
+  messagingSenderId: "251804537002",
+  appId: "1:251804537002:web:a59b5e6b483f558f4ac0d3"
 });
 
 const messaging = firebase.messaging();
@@ -22,8 +22,41 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: '/icon.png'
+    icon: '/icon.png',
+    badge: '/icon.png',
+    tag: 'punctual-attendance',
+    data: {
+      url: '/login'
+    }
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const urlToOpen = new URL(event.notification.data.url, self.location.origin).href;
+
+  const promiseChain = clients.matchAll({
+    type: 'window',
+    includeUncontrolled: true
+  }).then((windowClients) => {
+    let matchingClient = null;
+
+    for (let i = 0; i < windowClients.length; i++) {
+      const windowClient = windowClients[i];
+      if (windowClient.url === urlToOpen) {
+        matchingClient = windowClient;
+        break;
+      }
+    }
+
+    if (matchingClient) {
+      return matchingClient.focus();
+    } else {
+      return clients.openWindow(urlToOpen);
+    }
+  });
+
+  event.waitUntil(promiseChain);
 });
