@@ -230,11 +230,16 @@ const LandingPage = () => {
                 }`}
               >
                 <Download className="h-6 w-6" />
-                {isInstallable ? 'Install App Now' : 'App Already Installed'}
+                {isInstallable ? 'Install App Now' : (deferredPrompt === null && !window.matchMedia('(display-mode: standalone)').matches ? 'Installation Ready Soon' : 'App Installed')}
               </button>
-              {!isInstallable && (
-                <p className="mt-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                  * If button is disabled, you're already in the app!
+              {!isInstallable && !window.matchMedia('(display-mode: standalone)').matches && (
+                <p className="mt-4 text-xs font-bold text-slate-400 uppercase tracking-widest text-center">
+                  * If on Chrome/Edge, wait a few seconds or check your connection.
+                </p>
+              )}
+              {window.matchMedia('(display-mode: standalone)').matches && (
+                <p className="mt-4 text-xs font-bold text-green-500 uppercase tracking-widest text-center">
+                  ✨ Running in App Mode
                 </p>
               )}
             </div>

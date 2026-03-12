@@ -10,7 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.png', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['icon.png'],
       manifest: {
         name: 'Punctual Attendance',
         short_name: 'Punctual',
