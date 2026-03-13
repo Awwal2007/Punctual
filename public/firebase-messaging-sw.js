@@ -14,6 +14,12 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  
+  // Set Badge
+  if ('setAppBadge' in navigator) {
+    navigator.setAppBadge(1).catch(err => console.error(err));
+  }
+
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
@@ -21,7 +27,7 @@ messaging.onBackgroundMessage((payload) => {
     badge: '/icon.png',
     tag: 'punctual-attendance',
     data: {
-      url: '/login'
+      url: payload.data?.url || '/login'
     }
   };
 

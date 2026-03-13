@@ -47,15 +47,30 @@ const PrivateRoute = ({ children, role }) => {
     if (user) {
       requestForToken();
       onMessageListener().then((payload) => {
-        alert(`${payload.notification.title}: ${payload.notification.body}`);
+        // Show actual system banner in foreground
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification(payload.notification.title, {
+              body: payload.notification.body,
+              icon: '/icon.png',
+              badge: '/icon.png',
+              tag: 'punctual-attendance',
+              data: {
+                url: payload.data?.url || '/login'
+              }
+            });
+          });
+        }
+
+        // Set App Badge (Red dot)
         if ('setAppBadge' in navigator) {
-          navigator.setAppBadge(1).catch(err => console.error(err));
+          navigator.setAppBadge(1).catch(err => console.error('Error setting badge:', err));
         }
       });
       
       // Clear badge when user opens app
       if ('clearAppBadge' in navigator) {
-        navigator.clearAppBadge().catch(err => console.error(err));
+        navigator.clearAppBadge().catch(err => console.error('Error clearing badge:', err));
       }
     }
   }, [user]);
