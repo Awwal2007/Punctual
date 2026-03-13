@@ -69,7 +69,7 @@ const LandingPage = () => {
           <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100 animate-float">
             🚀 The Future of Attendance is Here
           </div>
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.1] tracking-tight mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight mb-8">
             Track Attendance <br />
             <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 via-purple-600 to-pink-500">
               Without Friction
