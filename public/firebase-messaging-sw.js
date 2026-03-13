@@ -35,8 +35,12 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
+  console.log('[firebase-messaging-sw.js] Notification click Received.');
   event.notification.close();
-  const urlToOpen = new URL(event.notification.data.url, self.location.origin).href;
+
+  // Get URL from data or default to /login
+  const targetUrl = event.notification.data?.url || '/login';
+  const urlToOpen = new URL(targetUrl, self.location.origin).href;
 
   const promiseChain = clients.matchAll({
     type: 'window',

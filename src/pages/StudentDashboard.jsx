@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Routes, Route, NavLink, useNavigate, Link } from 'react-router-dom';
 import api from '../api';
-import { Layout, QrCode, LogOut, Clock, CheckCircle, AlertCircle, Users, Menu, X } from 'lucide-react';
+import { Layout, QrCode, LogOut, Clock, CheckCircle, AlertCircle, Users, Menu, X, Loader2 } from 'lucide-react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { AuthContext } from '../context/AuthContext';
 
