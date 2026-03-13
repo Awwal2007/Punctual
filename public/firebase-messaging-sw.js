@@ -1,10 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
-
-// This will be replaced or supplemented by the user's config
-// In a real PWA context with Vite, we often use a template or 
-// environment variables that injected during build.
-// For now, we use a placeholder that matches the manifest names.
+importScripts('https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js');
 
 firebase.initializeApp({
   apiKey: "AIzaSyCkRgUiEZza4uF37PV5EVYkbuWkeqZvZOQ",
