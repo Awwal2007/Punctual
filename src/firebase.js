@@ -22,7 +22,6 @@ export const requestForToken = async () => {
         vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY
       });
       if (currentToken) {
-        console.log('FCM Token:', currentToken);
         // Register token with backend
         await api.put('/auth/fcm-token', { token: currentToken });
       } else {

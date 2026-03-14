@@ -109,12 +109,12 @@ const TeacherDashboard = () => {
         fixed inset-y-0 left-0 w-72 bg-white flex flex-col p-6 shadow-2xl z-50 transition-transform duration-300 md:relative md:translate-x-0 md:shadow-sm md:z-20
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="flex items-center justify-between mb-12 px-2">
+        <div className="flex items-center justify-between mb-8 px-2">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-100">
-              <QrCode className="h-6 w-6" />
+            <div className="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+              <QrCode className="h-5 w-5" />
             </div>
-            <span className="ml-3 text-2xl font-black tracking-tighter text-indigo-600">Punctual</span>
+            <span className="ml-3 text-xl font-black tracking-tighter text-indigo-600">Punctual</span>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(false)}
@@ -137,7 +137,7 @@ const TeacherDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-10 relative pt-20 md:pt-10">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 relative pt-20 md:pt-8">
         <Routes>
           <Route path="/" element={<Overview classes={classes} />} />
           <Route path="/classes" element={<ClassesManager classes={classes} refresh={fetchClasses} />} />
@@ -150,41 +150,41 @@ const TeacherDashboard = () => {
 
 const Overview = ({ classes }) => (
   <div className="animate-in fade-in duration-700 max-w-5xl mx-auto">
-    <header className="mb-10 text-center md:text-left">
-      <h1 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Teacher Overview</h1>
-      <p className="text-slate-500 font-medium mt-1">Manage your attendance and classes seamlessly.</p>
+    <header className="mb-8 text-center md:text-left">
+      <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Teacher Overview</h1>
+      <p className="text-slate-500 font-medium mt-1 text-sm">Manage your attendance and classes seamlessly.</p>
     </header>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
       {[
         { label: 'Total Classes', value: classes.length, icon: BookOpen, color: 'text-blue-600', bg: 'bg-blue-50' },
         { label: 'Active Sessions', value: '0', icon: QrCode, color: 'text-indigo-600', bg: 'bg-indigo-50' },
         { label: 'Today\'s Attendance', value: '0', icon: Users, color: 'text-purple-600', bg: 'bg-purple-50' }
       ].map((stat, i) => (
-        <div key={i} className="card-premium p-6 md:p-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center shadow-sm`}>
-              <stat.icon className="h-6 w-6" />
+        <div key={i} className="card-premium p-5 md:p-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className={`w-10 h-10 ${stat.bg} ${stat.color} rounded-xl flex items-center justify-center shadow-sm`}>
+              <stat.icon className="h-5 w-5" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Live</span>
           </div>
-          <h3 className="text-slate-500 font-bold text-sm tracking-wide">{stat.label}</h3>
-          <p className="text-4xl font-black text-slate-800 mt-1">{stat.value}</p>
+          <h3 className="text-slate-500 font-bold text-xs tracking-wide">{stat.label}</h3>
+          <p className="text-3xl font-black text-slate-800 mt-1">{stat.value}</p>
         </div>
       ))}
     </div>
 
-    <div className="card-premium p-8 md:p-12 bg-linear-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white relative overflow-hidden">
+    <div className="card-premium p-6 md:p-8 bg-linear-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white relative overflow-hidden">
       <div className="relative z-10 text-center md:text-left">
-        <h2 className="text-2xl md:text-3xl font-black mb-4 flex items-center justify-center md:justify-start">
-          <Plus className="mr-3 h-8 w-8" /> New Class
+        <h2 className="text-xl md:text-2xl font-black mb-3 flex items-center justify-center md:justify-start">
+          <Plus className="mr-2 h-6 w-6" /> New Class
         </h2>
-        <p className="text-indigo-100 mb-8 max-w-lg font-medium mx-auto md:mx-0">Ready to start a new session? Create a class and invite your students with ease.</p>
-        <Link to="/teacher-dashboard/classes" className="inline-flex items-center px-10 py-5 bg-white text-indigo-600 rounded-2xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center">
+        <p className="text-indigo-100 mb-6 max-w-lg font-medium mx-auto md:mx-0 text-sm">Ready to start a new session? Create a class and invite your students with ease.</p>
+        <Link to="/teacher-dashboard/classes" className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center text-sm">
           Manage Classes
         </Link>
       </div>
-      <QrCode className="absolute right-[-40px] bottom-[-40px] h-64 w-64 text-white/5 -rotate-12 hidden md:block" />
+      <QrCode className="absolute right-[-30px] bottom-[-30px] h-48 w-48 text-white/5 -rotate-12 hidden md:block" />
     </div>
   </div>
 );
@@ -347,6 +347,7 @@ const ClassesManager = ({ classes, refresh }) => {
                     <thead>
                       <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-50">
                         <th className="px-6 py-4">Name</th>
+                        <th className="px-6 py-4">Student ID</th>
                         <th className="px-6 py-4">Email</th>
                       </tr>
                     </thead>
@@ -354,6 +355,7 @@ const ClassesManager = ({ classes, refresh }) => {
                       {c.students.map(student => (
                         <tr key={student._id} className="hover:bg-slate-50/50 transition-colors">
                           <td className="px-6 py-4 font-bold text-slate-700">{student.name}</td>
+                          <td className="px-6 py-4 text-slate-500 text-xs font-black tracking-tight">{student.studentId || 'N/A'}</td>
                           <td className="px-6 py-4 text-slate-500 text-sm">{student.email}</td>
                         </tr>
                       ))}
@@ -384,10 +386,28 @@ const Reports = ({ classes }) => {
   const [history, setHistory] = useState([]);
   const [selectedExportClass, setSelectedExportClass] = useState('');
   const [isExporting, setIsExporting] = useState(false);
+  
+  // New Filter States
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterClass, setFilterClass] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
   useEffect(() => {
     api.get('/attendance/history').then(res => setHistory(res.data));
   }, []);
+
+  // Filtering Logic
+  const filteredHistory = history.filter(h => {
+    const matchesSearch = 
+      h.student.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (h.student.studentId && h.student.studentId.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesClass = filterClass ? h.class._id === filterClass : true;
+    
+    const matchesDate = filterDate ? new Date(h.timestamp).toLocaleDateString() === new Date(filterDate).toLocaleDateString() : true;
+
+    return matchesSearch && matchesClass && matchesDate;
+  });
 
   const data = {
     labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
@@ -453,56 +473,93 @@ const Reports = ({ classes }) => {
       </div>
 
       <div className="card-premium overflow-hidden border border-slate-100">
-        <div className="p-6 md:p-8 border-b border-slate-50 bg-slate-50/50 flex flex-col md:flex-row justify-between items-center gap-4">
-          <h3 className="text-lg font-black text-slate-800 uppercase tracking-tight">Recent Records</h3>
-          
-          <div className="flex items-center gap-2 w-full md:w-auto">
+        <div className="p-6 md:p-8 border-b border-slate-50 bg-slate-50/50 flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <h3 className="text-lg font-black text-slate-800 uppercase tracking-tight">Attendance Records</h3>
+            
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <select 
+                className="input-mobile py-2! text-sm! flex-1 md:w-48"
+                value={selectedExportClass}
+                onChange={(e) => setSelectedExportClass(e.target.value)}
+              >
+                <option value="">Select Class to Export</option>
+                {classes.map(c => (
+                  <option key={c._id} value={c._id}>{c.name}</option>
+                ))}
+              </select>
+              <button 
+                onClick={handleExport}
+                disabled={isExporting || !selectedExportClass}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                  isExporting || !selectedExportClass
+                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                  : 'bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:scale-105 active:scale-95'
+                }`}
+              >
+                <FileDown className="h-4 w-4" />
+                {isExporting ? 'Exporting...' : 'Export CSV'}
+              </button>
+            </div>
+          </div>
+
+          {/* Filters UI */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="relative group">
+              <Users className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-indigo-600 transition-colors pointer-events-none" />
+              <input 
+                type="text" 
+                placeholder="Search Student Name or ID..."
+                className="input-mobile pl-11! py-3! text-sm!"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+            
             <select 
-              className="input-mobile !py-2 !text-sm flex-1 md:w-48"
-              value={selectedExportClass}
-              onChange={(e) => setSelectedExportClass(e.target.value)}
+              className="input-mobile py-3! text-sm!"
+              value={filterClass}
+              onChange={e => setFilterClass(e.target.value)}
             >
-              <option value="">Select Class to Export</option>
+              <option value="">All Classes</option>
               {classes.map(c => (
                 <option key={c._id} value={c._id}>{c.name}</option>
               ))}
             </select>
-            <button 
-              onClick={handleExport}
-              disabled={isExporting || !selectedExportClass}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all ${
-                isExporting || !selectedExportClass
-                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                : 'bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:scale-105 active:scale-95'
-              }`}
-            >
-              <FileDown className="h-4 w-4" />
-              {isExporting ? 'Exporting...' : 'Export CSV'}
-            </button>
+
+            <input 
+              type="date" 
+              className="input-mobile py-3! text-sm!"
+              value={filterDate}
+              onChange={e => setFilterDate(e.target.value)}
+            />
           </div>
         </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50 text-slate-500 border-b border-slate-100">
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Student</th>
+                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Student ID</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Class</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Date</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Time</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {history.length > 0 ? history.map((h, i) => (
+              {filteredHistory.length > 0 ? filteredHistory.map((h, i) => (
                 <tr key={i} className="hover:bg-slate-50/50 transition-colors">
                   <td className="px-6 py-5 font-bold text-slate-800">{h.student.name}</td>
+                  <td className="px-6 py-5 text-slate-500 text-xs font-black tracking-tight">{h.student.studentId || 'N/A'}</td>
                   <td className="px-6 py-5 text-slate-600 font-medium">{h.class.name}</td>
                   <td className="px-6 py-5 text-slate-500 text-xs font-bold">{new Date(h.timestamp).toLocaleDateString()}</td>
                   <td className="px-6 py-5 text-slate-500 text-xs font-bold">{new Date(h.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan="3" className="px-6 py-20 text-center">
-                    <p className="text-slate-400 font-bold">No records found yet.</p>
+                  <td colSpan="5" className="px-6 py-20 text-center">
+                    <p className="text-slate-400 font-bold">No records match your filters.</p>
                   </td>
                 </tr>
               )}

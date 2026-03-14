@@ -9,7 +9,8 @@ const Signup = () => {
     name: '',
     email: '',
     password: '',
-    role: params.get('role') || 'student'
+    role: params.get('role') || 'student',
+    studentId: ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('')
@@ -36,13 +37,13 @@ const Signup = () => {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-[100px] -z-10 animate-pulse"></div>
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100/50 rounded-full blur-[100px] -z-10"></div>
 
-      <div className="max-w-md w-full glass rounded-5xl p-8 md:p-12 shadow-2xl relative">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-600 text-white rounded-3xl mb-6 shadow-xl shadow-indigo-100 rotate-6 hover:rotate-0 transition-transform duration-500">
-            <UserPlus className="h-10 w-10" />
+      <div className="max-w-md w-full glass rounded-3xl p-6 md:p-8 shadow-2xl relative">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 text-white rounded-2xl mb-4 shadow-xl shadow-indigo-100 rotate-6 hover:rotate-0 transition-transform duration-500">
+            <UserPlus className="h-8 w-8" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight leading-tight">Create Account</h2>
-          <p className="text-slate-500 mt-2 font-medium">Join Punctual for smart attendance</p>
+          <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight leading-tight">Create Account</h2>
+          <p className="text-slate-500 mt-1.5 font-medium text-sm">Join Punctual for smart attendance</p>
         </div>
 
         {error && <div className="mb-8 p-5 bg-red-50 text-red-600 rounded-2xl text-sm border border-red-100 font-bold animate-in slide-in-from-top duration-300">{error}</div>}
@@ -81,6 +82,20 @@ const Signup = () => {
               required
             />
           </div>
+
+          {formData.role === 'student' && (
+            <div className="relative group animate-in fade-in slide-in-from-top-2 duration-300">
+              <UserPlus className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Student ID / Matric Number"
+                className="input-mobile pl-14"
+                value={formData.studentId}
+                onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                required
+              />
+            </div>
+          )}
           <div className="relative group">
             <Users className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors pointer-events-none" />
             <select
@@ -98,7 +113,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full btn-premium py-4 text-xl mt-2 shadow-2xl shadow-indigo-200 flex  items-center justify-center gap-3 transition-all ${
+            className={`w-full btn-premium py-3.5 text-lg mt-2 shadow-2xl shadow-indigo-200 flex  items-center justify-center gap-3 transition-all ${
               isLoading ? 'opacity-70 cursor-not-allowed scale-[0.98]' : 'cursor-pointer'
             }`}
           >
@@ -113,7 +128,7 @@ const Signup = () => {
           </button>
         </form>
 
-        <p className="text-center mt-4 text-slate-500 font-medium">
+        <p className="text-center mt-6 text-slate-500 font-medium text-sm">
           Already have an account? <Link to="/login" className="text-indigo-600 font-black hover:underline ml-2">Sign In</Link>
         </p>
       </div>

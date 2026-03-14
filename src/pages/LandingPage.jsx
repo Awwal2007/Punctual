@@ -58,31 +58,94 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative pt-44 pb-32 px-4 overflow-hidden">
+      <header className="relative pt-32 pb-24 px-4 overflow-hidden">
         {/* Background Decor */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-100 rounded-full blur-[120px] opacity-40 animate-pulse"></div>
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100 rounded-full blur-[120px] opacity-40"></div>
         </div>
 
+        {/* Floating Hero Items */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <div className="hidden md:block absolute top-1/4 left-[5%] lg:left-[10%] rotate-12 animate-float">
+            <div className="glass px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xl border-white/40 pointer-events-auto hover:scale-110 transition-transform duration-500">
+              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white">
+                <CheckCircle className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400">Accuracy</p>
+                <p className="text-sm font-black text-slate-800">100% Verified</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden md:block absolute bottom-1/4 right-[5%] lg:right-[8%] rotate-12 animate-float animation-delay-2000">
+            <div className="glass px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xl border-white/40 pointer-events-auto hover:scale-110 transition-transform duration-500">
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                <Users className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400">Community</p>
+                <p className="text-sm font-black text-slate-800">10k+ Students</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden md:block absolute top-[20%] right-[8%] lg:right-[12%] animate-float animation-delay-1000">
+            <div className="glass px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xl border-white/40 pointer-events-auto hover:scale-110 transition-transform duration-500">
+              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center text-white">
+                <Shield className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400">Security</p>
+                <p className="text-sm font-black text-slate-800">Encrypted Codes</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:block absolute bottom-[20%] left-[15%] -rotate-12 animate-float animation-delay-3000">
+            <div className="glass px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xl border-white/40 pointer-events-auto hover:scale-110 transition-transform duration-500">
+              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
+                <BarChart3 className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400">Reports</p>
+                <p className="text-sm font-black text-slate-800">Real-time Sync</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:block absolute top-1/2 left-[5%] -translate-y-1/2 animate-float animation-delay-4000">
+            <div className="glass px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xl border-white/40 pointer-events-auto hover:scale-110 transition-transform duration-500">
+              <div className="w-8 h-8 bg-pink-500 rounded-lg flex items-center justify-center text-white">
+                <PlusSquare className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase text-slate-400">Efficiency</p>
+                <p className="text-sm font-black text-slate-800">Fast Enrollment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100 animate-float">
+          <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100">
             🚀 The Future of Attendance is Here
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] tracking-tight mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] tracking-tight mb-6">
             Track Attendance <br />
             <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 via-purple-600 to-pink-500">
               Without Friction
             </span>
           </h1>
-          <p className="text-lg md:text-2xl text-slate-500 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-base md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
             Eliminate tedious roll-calls. Use dynamic QR codes to verify student attendance in milliseconds. Secure, visual, and brilliantly simple.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4">
             <Link to="/signup?role=teacher" className="btn-premium px-10 py-5 text-lg w-full sm:w-auto">
               Teacher Sign Up
             </Link>
-            <Link to="/signup?role=student" className="px-10 py-5 bg-white text-slate-800 border-2 border-slate-200 rounded-2xl font-black hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm hover:shadow-xl text-lg w-full sm:w-auto">
+            <Link to="/signup?role=student" className="px-10 py-5 bg-white text-slate-800 border-2 border-slate-200 rounded-[10px] font-black hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm hover:shadow-xl text-lg w-full sm:w-auto">
               Student Sign Up
             </Link>
           </div>
@@ -90,24 +153,24 @@ const LandingPage = () => {
       </header>
  
       {/* Features Section */}
-      <section id="features" className="py-32 bg-white">
+      <section id="features" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl font-black mb-4">Built for Efficiency</h2>
-            <p className="text-xl text-slate-500">Everything you need to manage attendance at scale.</p>
+          <div className="text-center mb-20">
+            <h2 className="text-3xl font-black mb-4">Built for Efficiency</h2>
+            <p className="text-lg text-slate-500">Everything you need to manage attendance at scale.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: QrCode, title: 'Dynamic QR Codes', desc: 'Secure, time-fenced QR codes that prevent unauthorized attendance marking.', color: 'bg-blue-500' },
               { icon: BarChart3, title: 'Real-time Insights', desc: 'Beautiful analytics dashboards that show attendance trends and anomalies.', color: 'bg-indigo-500' },
               { icon: Shield, title: 'Identity Verified', desc: 'Enforced enrollment checks and timestamp validation for 100% accuracy.', color: 'bg-purple-500' }
             ].map((f, i) => (
-              <div key={i} className="card-premium p-10 group cursor-default">
-                <div className={`w-14 h-14 ${f.color} rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg rotate-3 group-hover:rotate-0 transition-transform duration-500`}>
-                  <f.icon className="h-7 w-7" />
+              <div key={i} className="card-premium p-8 group cursor-default">
+                <div className={`w-12 h-12 ${f.color} rounded-xl flex items-center justify-center mb-6 text-white shadow-lg rotate-3 group-hover:rotate-0 transition-transform duration-500`}>
+                  <f.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
-                <p className="text-slate-500 leading-relaxed text-lg">{f.desc}</p>
+                <h3 className="text-xl font-bold mb-3">{f.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-base">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -115,18 +178,18 @@ const LandingPage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 bg-slate-50 relative overflow-hidden">
+      <section id="about" className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
               <div className="inline-block px-4 py-1.5 mb-6 text-[10px] font-black tracking-widest text-purple-600 uppercase bg-purple-50 rounded-full border border-purple-100">
                 Our Vision
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
                 Modernizing the <br />
                 <span className="text-indigo-600">Classroom Experience</span>
               </h2>
-              <p className="text-lg text-slate-500 mb-8 leading-relaxed font-medium">
+              <p className="text-base text-slate-500 mb-8 leading-relaxed font-medium">
                 Punctual was born from a simple observation: manual attendance is a waste of precious educational time. We've built a platform that's not just a tool, but a catalyst for better student engagement.
               </p>
               <ul className="space-y-4">
@@ -172,11 +235,11 @@ const LandingPage = () => {
       </section>
 
       {/* How it Works Section */}
-      <section id="how-it-works" className="py-32 bg-white">
+      <section id="how-it-works" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl font-black mb-4">Brilliantly Simple</h2>
-            <p className="text-xl text-slate-500">Three steps to a paperless classroom.</p>
+          <div className="text-center mb-20">
+            <h2 className="text-3xl font-black mb-4">Brilliantly Simple</h2>
+            <p className="text-lg text-slate-500">Three steps to a paperless classroom.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12 relative">
             {/* Connection Lines (Desktop) */}
@@ -203,11 +266,11 @@ const LandingPage = () => {
       </section>
 
       {/* Install PWA Section */}
-      <section id="install" className="py-32 bg-indigo-50 relative overflow-hidden">
+      <section id="install" className="py-24 bg-indigo-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 text-slate-900">Get the Punctual App</h2>
-            <p className="text-xl text-slate-500 font-medium">Experience Punctual directly from your home screen.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black mb-4 text-slate-900">Get the Punctual App</h2>
+            <p className="text-lg text-slate-500 font-medium">Experience Punctual directly from your home screen.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">

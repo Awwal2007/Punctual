@@ -77,12 +77,12 @@ const StudentDashboard = () => {
         fixed inset-y-0 left-0 w-72 bg-white flex flex-col p-6 shadow-2xl z-50 transition-transform duration-300 md:relative md:translate-x-0 md:shadow-sm md:z-20
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="flex items-center justify-between mb-12 px-2">
+        <div className="flex items-center justify-between mb-8 px-2">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-100">
-              <QrCode className="h-6 w-6" />
+            <div className="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+              <QrCode className="h-5 w-5" />
             </div>
-            <span className="ml-3 text-2xl font-black tracking-tighter text-indigo-600">Punctual</span>
+            <span className="ml-3 text-xl font-black tracking-tighter text-indigo-600">Punctual</span>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(false)}
@@ -105,7 +105,7 @@ const StudentDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-10 relative pt-20 md:pt-10">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 relative pt-20 md:pt-8">
         <Routes>
           <Route path="/" element={<StudentOverview />} />
           <Route path="/scan" element={<Scanner />} />
@@ -126,37 +126,37 @@ const StudentOverview = () => {
 
   return (
     <div className="animate-in fade-in duration-700 max-w-4xl mx-auto">
-      <header className="mb-10 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Student Dashboard</h1>
-        <p className="text-slate-500 font-medium mt-1">Track your presence and attendance history.</p>
+      <header className="mb-8 text-center md:text-left">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Student Dashboard</h1>
+        <p className="text-slate-500 font-medium mt-1 text-sm">Track your presence and attendance history.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-10">
-        <div className="card-premium p-6 md:p-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className={`w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center shadow-sm`}>
-              <CheckCircle className="h-6 w-6" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+        <div className="card-premium p-5 md:p-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className={`w-10 h-10 bg-green-50 text-green-600 rounded-xl flex items-center justify-center shadow-sm`}>
+              <CheckCircle className="h-5 w-5" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total</span>
           </div>
-          <h3 className="text-slate-500 font-bold text-sm tracking-wide">Total Attendances</h3>
-          <p className="text-4xl font-black text-slate-800 mt-1">{history.length}</p>
+          <h3 className="text-slate-500 font-bold text-xs tracking-wide">Total Attendances</h3>
+          <p className="text-3xl font-black text-slate-800 mt-1">{history.length}</p>
         </div>
-        <div className="card-premium p-6 md:p-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className={`w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm`}>
-              <Users className="h-6 w-6" />
+        <div className="card-premium p-5 md:p-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className={`w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shadow-sm`}>
+              <Users className="h-5 w-5" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Enrolled</span>
           </div>
-          <h3 className="text-slate-500 font-bold text-sm tracking-wide">My Classes</h3>
-          <p className="text-4xl font-black text-slate-800 mt-1">{classes.length}</p>
+          <h3 className="text-slate-500 font-bold text-xs tracking-wide">My Classes</h3>
+          <p className="text-3xl font-black text-slate-800 mt-1">{classes.length}</p>
         </div>
       </div>
 
       {classes.length > 0 && (
         <div className="mb-10 animate-in slide-in-from-bottom duration-500">
-          <h2 className="text-xl font-black text-slate-800 mb-4 px-2 uppercase tracking-tight text-[10px] text-slate-400">Enrolled Classes</h2>
+          <h2 className="text-[10px] font-black uppercase tracking-tight text-slate-400 mb-4 px-2">Enrolled Classes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {classes.map(c => (
               <div key={c._id} className="card-premium p-6 flex items-center justify-between group hover:bg-white transition-all">
@@ -173,17 +173,17 @@ const StudentOverview = () => {
         </div>
       )}
 
-      <div className="card-premium p-8 md:p-12 bg-linear-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white relative overflow-hidden">
+      <div className="card-premium p-6 md:p-8 bg-linear-to-br from-indigo-600 via-indigo-700 to-purple-700 text-white relative overflow-hidden">
         <div className="relative z-10 text-center md:text-left">
-          <h2 className="text-2xl md:text-3xl font-black mb-4 flex items-center justify-center md:justify-start">
-            <QrCode className="mr-3 h-8 w-8" /> Mark Attendance
+          <h2 className="text-xl md:text-2xl font-black mb-3 flex items-center justify-center md:justify-start">
+            <QrCode className="mr-2 h-6 w-6" /> Mark Attendance
           </h2>
-          <p className="text-indigo-100 mb-8 max-w-lg font-medium mx-auto md:mx-0">Ready to scan your class QR code? Open the camera and hold it steady.</p>
-          <Link to="/student-dashboard/scan" className="inline-flex items-center px-10 py-5 bg-white text-indigo-600 rounded-2xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center">
+          <p className="text-indigo-100 mb-6 max-w-lg font-medium mx-auto md:mx-0 text-sm">Ready to scan your class QR code? Open the camera and hold it steady.</p>
+          <Link to="/student-dashboard/scan" className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center text-sm">
             Open Scanner
           </Link>
         </div>
-        <CheckCircle className="absolute right-[-40px] bottom-[-40px] h-64 w-64 text-white/5 -rotate-12 hidden md:block" />
+        <CheckCircle className="absolute right-[-30px] bottom-[-30px] h-48 w-48 text-white/5 -rotate-12 hidden md:block" />
       </div>
     </div>
   );
@@ -340,15 +340,46 @@ const Scanner = () => {
 
 const History = () => {
   const [history, setHistory] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [filterClass, setFilterClass] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
   useEffect(() => {
     api.get('/attendance/history').then(res => setHistory(res.data));
+    api.get('/classes').then(res => setClasses(res.data));
   }, []);
+
+  const filteredHistory = history.filter(h => {
+    const matchesClass = filterClass ? h.class._id === filterClass : true;
+    const matchesDate = filterDate ? new Date(h.timestamp).toLocaleDateString() === new Date(filterDate).toLocaleDateString() : true;
+    return matchesClass && matchesDate;
+  });
 
   return (
     <div className="max-w-4xl mx-auto pt-6">
-      <h1 className="text-3xl font-black text-slate-800 mb-8 tracking-tight">Attendance History</h1>
+      <h1 className="text-3xl font-black text-slate-800 mb-8 tracking-tight text-center md:text-left">Attendance History</h1>
+      
       <div className="card-premium overflow-hidden border border-slate-100">
+        <div className="p-6 bg-slate-50/50 border-b border-slate-100 flex flex-col md:flex-row gap-4">
+          <select 
+            className="input-mobile py-3! text-sm! flex-1"
+            value={filterClass}
+            onChange={e => setFilterClass(e.target.value)}
+          >
+            <option value="">All Classes</option>
+            {classes.map(c => (
+              <option key={c._id} value={c._id}>{c.name}</option>
+            ))}
+          </select>
+
+          <input 
+            type="date" 
+            className="input-mobile py-3! text-sm! flex-1"
+            value={filterDate}
+            onChange={e => setFilterDate(e.target.value)}
+          />
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -360,7 +391,7 @@ const History = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {history.length > 0 ? history.map((h, i) => (
+              {filteredHistory.length > 0 ? filteredHistory.map((h, i) => (
                 <tr key={i} className="hover:bg-slate-50/50 transition-colors">
                   <td className="px-6 py-5 font-bold text-slate-800">{h.class.name}</td>
                   <td className="px-6 py-5 text-slate-600 font-medium">{new Date(h.timestamp).toLocaleDateString()}</td>
@@ -371,10 +402,10 @@ const History = () => {
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan="3" className="px-6 py-20 text-center">
+                  <td colSpan="4" className="px-6 py-20 text-center">
                     <div className="flex flex-col items-center text-slate-400">
                       <Clock className="h-12 w-12 mb-4 opacity-20" />
-                      <p className="text-lg font-bold">No attendance records yet</p>
+                      <p className="text-lg font-bold">No records matching your search</p>
                     </div>
                   </td>
                 </tr>
