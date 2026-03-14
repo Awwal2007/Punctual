@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, BarChart3, QrCode, Shield, Users, Mail, Download, Smartphone, Share, PlusSquare } from 'lucide-react';
+import { useReveal } from '../hooks/useReveal';
 
 const LandingPage = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -28,6 +29,11 @@ const LandingPage = () => {
       setIsInstallable(false);
     }
   };
+
+  const [featuresRef, featuresVisible] = useReveal();
+  const [aboutRef, aboutVisible] = useReveal();
+  const [howRef, howVisible] = useReveal();
+  const [installRef, installVisible] = useReveal();
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900">
@@ -128,20 +134,20 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100 opacity-0 animate-reveal">
             🚀 The Future of Attendance is Here
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] tracking-tight mb-6 opacity-0 animate-reveal stagger-1">
             Track Attendance <br />
             <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 via-purple-600 to-pink-500">
               Without Friction
             </span>
           </h1>
-          <p className="text-base md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-base md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium opacity-0 animate-reveal stagger-2">
             Eliminate tedious roll-calls. Use dynamic QR codes to verify student attendance in milliseconds. Secure, visual, and brilliantly simple.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4 opacity-0 animate-reveal stagger-3">
             <Link to="/signup?role=teacher" className="btn-premium px-10 py-5 text-lg w-full sm:w-auto">
               Teacher Sign Up
             </Link>
@@ -153,9 +159,9 @@ const LandingPage = () => {
       </header>
  
       {/* Features Section */}
-      <section id="features" className="py-24 bg-white">
+      <section id="features" ref={featuresRef} className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <div className={`text-center mb-20 ${featuresVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
             <h2 className="text-3xl font-black mb-4">Built for Efficiency</h2>
             <p className="text-lg text-slate-500">Everything you need to manage attendance at scale.</p>
           </div>
@@ -165,7 +171,7 @@ const LandingPage = () => {
               { icon: BarChart3, title: 'Real-time Insights', desc: 'Beautiful analytics dashboards that show attendance trends and anomalies.', color: 'bg-indigo-500' },
               { icon: Shield, title: 'Identity Verified', desc: 'Enforced enrollment checks and timestamp validation for 100% accuracy.', color: 'bg-purple-500' }
             ].map((f, i) => (
-              <div key={i} className="card-premium p-8 group cursor-default">
+              <div key={i} className={`card-premium p-8 group cursor-default ${featuresVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                 <div className={`w-12 h-12 ${f.color} rounded-xl flex items-center justify-center mb-6 text-white shadow-lg rotate-3 group-hover:rotate-0 transition-transform duration-500`}>
                   <f.icon className="h-6 w-6" />
                 </div>
@@ -178,10 +184,10 @@ const LandingPage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 bg-slate-50 relative overflow-hidden">
+      <section id="about" ref={aboutRef} className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2">
+            <div className={`lg:w-1/2 ${aboutVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
               <div className="inline-block px-4 py-1.5 mb-6 text-[10px] font-black tracking-widest text-purple-600 uppercase bg-purple-50 rounded-full border border-purple-100">
                 Our Vision
               </div>
@@ -198,14 +204,14 @@ const LandingPage = () => {
                   { title: 'Eliminate manual entry errors', color: 'text-blue-500' },
                   { title: 'Instant digital reports', color: 'text-indigo-500' }
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center text-slate-700 font-bold">
+                  <li key={i} className={`flex items-center text-slate-700 font-bold ${aboutVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                     <CheckCircle className={`h-6 w-6 mr-3 ${item.color}`} />
                     {item.title}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="lg:w-1/2 relative">
+            <div className={`lg:w-1/2 relative ${aboutVisible ? 'animate-reveal stagger-2' : 'reveal-hidden'}`}>
               <div className="glass p-8 md:p-12 rounded-[3.5rem] relative z-10 border-white/40 shadow-2xl">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 p-4 bg-white/50 rounded-2xl border border-white/20">
@@ -235,22 +241,22 @@ const LandingPage = () => {
       </section>
 
       {/* How it Works Section */}
-      <section id="how-it-works" className="py-24 bg-white">
+      <section id="how-it-works" ref={howRef} className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <div className={`text-center mb-20 ${howVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
             <h2 className="text-3xl font-black mb-4">Brilliantly Simple</h2>
             <p className="text-lg text-slate-500">Three steps to a paperless classroom.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12 relative">
             {/* Connection Lines (Desktop) */}
-            <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -z-10"></div>
+            <div className={`hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -z-10 ${howVisible ? 'animate-fade stagger-4' : 'reveal-hidden'}`}></div>
             
             {[
               { step: '01', icon: QrCode, title: 'Teacher Generates', desc: 'The teacher creates a time-limited QR code for the class session.' },
               { step: '02', icon: Shield, title: 'Student Scans', desc: 'Students scan the code using the Punctual app on their mobile devices.' },
               { step: '03', icon: CheckCircle, title: 'Verified Instantly', desc: 'Attendance is logged, verified against enrollment, and ready for reports.' }
             ].map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center group">
+              <div key={i} className={`flex flex-col items-center text-center group ${howVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                 <div className="w-20 h-20 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center mb-8 shadow-xl relative z-10 group-hover:border-indigo-600 transition-colors duration-500">
                   <s.icon className="h-8 w-8 text-indigo-600" />
                   <div className="absolute -top-4 -right-4 w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-xs">
@@ -266,16 +272,16 @@ const LandingPage = () => {
       </section>
 
       {/* Install PWA Section */}
-      <section id="install" className="py-24 bg-indigo-50 relative overflow-hidden">
+      <section id="install" ref={installRef} className="py-24 bg-indigo-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 ${installVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
             <h2 className="text-3xl font-black mb-4 text-slate-900">Get the Punctual App</h2>
             <p className="text-lg text-slate-500 font-medium">Experience Punctual directly from your home screen.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Android / Desktop Install */}
-            <div className="card-premium p-8 md:p-12 text-center flex flex-col items-center">
+            <div className={`card-premium p-8 md:p-12 text-center flex flex-col items-center ${installVisible ? 'animate-reveal stagger-1' : 'reveal-hidden'}`}>
               <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl">
                 <Smartphone className="h-8 w-8" />
               </div>
@@ -308,7 +314,7 @@ const LandingPage = () => {
             </div>
 
             {/* iOS Instructions */}
-            <div className="card-premium p-8 md:p-12 text-center flex flex-col items-center relative overflow-hidden">
+            <div className={`card-premium p-8 md:p-12 text-center flex flex-col items-center relative overflow-hidden ${installVisible ? 'animate-reveal stagger-2' : 'reveal-hidden'}`}>
               <div className="absolute top-0 right-0 p-4">
                 <div className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">iOS Guide</div>
               </div>
@@ -322,7 +328,7 @@ const LandingPage = () => {
                   { icon: PlusSquare, text: 'Select "Add to Home Screen"' },
                   { icon: CheckCircle, text: 'Tap "Add" in the top right corner' }
                 ].map((step, i) => (
-                  <div key={i} className="flex items-center gap-4 text-left p-4 bg-white/50 rounded-2xl border border-white/20">
+                  <div key={i} className={`flex items-center gap-4 text-left p-4 bg-white/50 rounded-2xl border border-white/20 opacity-0 animate-reveal stagger-${i + 1}`}>
                     <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center text-indigo-600">
                       <step.icon className="h-5 w-5" />
                     </div>
@@ -338,7 +344,7 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer className="py-20 bg-slate-900 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        <div className="max-w-7xl mx-auto px-4 text-center opacity-0 animate-reveal">
           <div className="flex flex-col items-center">
             <div className="w-12 h-12 mb-3 bg-indigo-600 rounded-xl flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
               <QrCode className="h-8 w-8" />
