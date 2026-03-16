@@ -4,8 +4,8 @@ import { AuthProvider, AuthContext } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import TeacherDashboard from './pages/TeacherDashboard';
-import StudentDashboard from './pages/StudentDashboard';
+import ManagerDashboard from './pages/ManagerDashboard';
+import WorkerDashboard from './pages/WorkerDashboard';
 import { requestForToken, onMessageListener } from './firebase';
 import { Loader2, QrCode } from 'lucide-react';
 
@@ -30,7 +30,7 @@ const PublicRoute = ({ children }) => {
   if (loading) return <LoadingScreen />;
 
   if (user) {
-    return <Navigate to={user.role === 'teacher' ? '/teacher-dashboard' : '/student-dashboard'} replace />;
+    return <Navigate to={user.role === 'manager' ? '/manager-dashboard' : '/worker-dashboard'} replace />;
   }
 
   if (isStandalone && window.location.pathname === '/') {
@@ -82,29 +82,32 @@ const PrivateRoute = ({ children, role }) => {
   return children;
 };
 
+import ScrollToTop from './components/ScrollToTop';
+
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
           
           <Route 
-            path="/teacher-dashboard/*" 
+            path="/manager-dashboard/*" 
             element={
-              <PrivateRoute role="teacher">
-                <TeacherDashboard />
+              <PrivateRoute role="manager">
+                <ManagerDashboard />
               </PrivateRoute>
             } 
           />
           
           <Route 
-            path="/student-dashboard/*" 
+            path="/worker-dashboard/*" 
             element={
-              <PrivateRoute role="student">
-                <StudentDashboard />
+              <PrivateRoute role="worker">
+                <WorkerDashboard />
               </PrivateRoute>
             } 
           />

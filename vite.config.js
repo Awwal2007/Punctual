@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: 'Punctual Attendance',
         short_name: 'Punctual',
-        description: 'Elite QR Student Attendance System',
+        description: 'Punctual - Premium Corporate Workforce Tracking System',
         theme_color: '#4f46e5',
         background_color: '#f8fafc',
         display: 'standalone',

@@ -79,8 +79,8 @@ const LandingPage = () => {
                 <CheckCircle className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase text-slate-400">Accuracy</p>
-                <p className="text-sm font-black text-slate-800">100% Verified</p>
+                <p className="text-[10px] font-black uppercase text-slate-400">Reliability</p>
+                <p className="text-sm font-black text-slate-800">100% Truthful</p>
               </div>
             </div>
           </div>
@@ -91,8 +91,8 @@ const LandingPage = () => {
                 <Users className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase text-slate-400">Community</p>
-                <p className="text-sm font-black text-slate-800">10k+ Students</p>
+                <p className="text-[10px] font-black uppercase text-slate-400">Workforce</p>
+                <p className="text-sm font-black text-slate-800">10k+ Workers</p>
               </div>
             </div>
           </div>
@@ -103,8 +103,8 @@ const LandingPage = () => {
                 <Shield className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase text-slate-400">Security</p>
-                <p className="text-sm font-black text-slate-800">Encrypted Codes</p>
+                <p className="text-[10px] font-black uppercase text-slate-400">Compliance</p>
+                <p className="text-sm font-black text-slate-800">Secure Access</p>
               </div>
             </div>
           </div>
@@ -115,8 +115,8 @@ const LandingPage = () => {
                 <BarChart3 className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase text-slate-400">Reports</p>
-                <p className="text-sm font-black text-slate-800">Real-time Sync</p>
+                <p className="text-[10px] font-black uppercase text-slate-400">Analytics</p>
+                <p className="text-sm font-black text-slate-800">Real-time Data</p>
               </div>
             </div>
           </div>
@@ -127,8 +127,8 @@ const LandingPage = () => {
                 <PlusSquare className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase text-slate-400">Efficiency</p>
-                <p className="text-sm font-black text-slate-800">Fast Enrollment</p>
+                <p className="text-[10px] font-black uppercase text-slate-400">Productivity</p>
+                <p className="text-sm font-black text-slate-800">Automated Flows</p>
               </div>
             </div>
           </div>
@@ -136,23 +136,23 @@ const LandingPage = () => {
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="inline-block px-4 py-1.5 mb-6 text-[10px] md:text-sm font-black tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full border border-indigo-100 opacity-0 animate-reveal">
-            🚀 The Future of Attendance is Here
+            🚀 The Future of Workforce Tracking is Here
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] tracking-tight mb-6 opacity-0 animate-reveal stagger-1">
-            Track Attendance <br />
+            Verify Your Team <br />
             <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 via-purple-600 to-pink-500">
-              Without Friction
+              In Seconds
             </span>
           </h1>
           <p className="text-base md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium opacity-0 animate-reveal stagger-2">
-            Eliminate tedious roll-calls. Use dynamic QR codes to verify student attendance in milliseconds. Secure, visual, and brilliantly simple.
+            Eliminate traditional time-clocks. Use dynamic QR codes to verify worker check-ins in milliseconds. Secure, transparent, and brilliantly simple.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4 opacity-0 animate-reveal stagger-3">
-            <Link to="/signup?role=teacher" className="btn-premium px-10 py-5 text-lg w-full sm:w-auto">
-              Teacher Sign Up
+            <Link to="/signup?role=manager" className="btn-premium px-10 py-5 text-lg w-full sm:w-auto">
+              Manager Sign Up
             </Link>
-            <Link to="/signup?role=student" className="px-10 py-5 bg-white text-slate-800 border-2 border-slate-200 rounded-[10px] font-black hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm hover:shadow-xl text-lg w-full sm:w-auto">
-              Student Sign Up
+            <Link to="/signup?role=worker" className="px-10 py-5 bg-white text-slate-800 border-2 border-slate-200 rounded-[10px] font-black hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm hover:shadow-xl text-lg w-full sm:w-auto">
+              Worker Sign Up
             </Link>
           </div>
         </div>
@@ -162,14 +162,14 @@ const LandingPage = () => {
       <section id="features" ref={featuresRef} className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-20 ${featuresVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
-            <h2 className="text-3xl font-black mb-4">Built for Efficiency</h2>
-            <p className="text-lg text-slate-500">Everything you need to manage attendance at scale.</p>
+            <h2 className="text-3xl font-black mb-4">Built for Business</h2>
+            <p className="text-lg text-slate-500">Everything you need to manage your workforce check-ins at scale.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: QrCode, title: 'Dynamic QR Codes', desc: 'Secure, time-fenced QR codes that prevent unauthorized attendance marking.', color: 'bg-blue-500' },
-              { icon: BarChart3, title: 'Real-time Insights', desc: 'Beautiful analytics dashboards that show attendance trends and anomalies.', color: 'bg-indigo-500' },
-              { icon: Shield, title: 'Identity Verified', desc: 'Enforced enrollment checks and timestamp validation for 100% accuracy.', color: 'bg-purple-500' }
+              { icon: QrCode, title: 'Dynamic QR Check-ins', desc: 'Secure, time-fenced QR codes that prevent buddy-punching and unauthorized check-ins.', color: 'bg-blue-500' },
+              { icon: BarChart3, title: 'Operational Insights', desc: 'Beautiful analytics dashboards that show attendance trends and operational anomalies.', color: 'bg-indigo-500' },
+              { icon: Shield, title: 'Identity Verified', desc: 'Enforced payroll-ready checks and timestamp validation for 100% accuracy.', color: 'bg-purple-500' }
             ].map((f, i) => (
               <div key={i} className={`card-premium p-8 group cursor-default ${featuresVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                 <div className={`w-12 h-12 ${f.color} rounded-xl flex items-center justify-center mb-6 text-white shadow-lg rotate-3 group-hover:rotate-0 transition-transform duration-500`}>
@@ -193,16 +193,16 @@ const LandingPage = () => {
               </div>
               <h2 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
                 Modernizing the <br />
-                <span className="text-indigo-600">Classroom Experience</span>
+                <span className="text-indigo-600">Workplace Experience</span>
               </h2>
               <p className="text-base text-slate-500 mb-8 leading-relaxed font-medium">
-                Punctual was born from a simple observation: manual attendance is a waste of precious educational time. We've built a platform that's not just a tool, but a catalyst for better student engagement.
+                Punctual was born from a simple observation: manual time-tracking is a waste of precious operational resources. We've built a platform that's not just a tool, but a catalyst for better productivity.
               </p>
               <ul className="space-y-4">
                 {[
-                  { title: 'Save 5-10 mins per class', color: 'text-green-500' },
+                  { title: 'Reduce administrative overhead', color: 'text-green-500' },
                   { title: 'Eliminate manual entry errors', color: 'text-blue-500' },
-                  { title: 'Instant digital reports', color: 'text-indigo-500' }
+                  { title: 'Instant payroll-ready reports', color: 'text-indigo-500' }
                 ].map((item, i) => (
                   <li key={i} className={`flex items-center text-slate-700 font-bold ${aboutVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                     <CheckCircle className={`h-6 w-6 mr-3 ${item.color}`} />
@@ -219,7 +219,7 @@ const LandingPage = () => {
                       <Users className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-xs font-black uppercase text-slate-400">Total Scans</p>
+                      <p className="text-xs font-black uppercase text-slate-400">Total Check-ins</p>
                       <p className="text-xl font-black text-slate-800">1.2M+</p>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ const LandingPage = () => {
                       <Shield className="h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-xs font-black uppercase text-slate-400">Accuracy</p>
+                      <p className="text-xs font-black uppercase text-slate-400">Truthfulness</p>
                       <p className="text-xl font-black text-slate-800">100% Verified</p>
                     </div>
                   </div>
@@ -245,16 +245,16 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-20 ${howVisible ? 'animate-reveal' : 'reveal-hidden'}`}>
             <h2 className="text-3xl font-black mb-4">Brilliantly Simple</h2>
-            <p className="text-lg text-slate-500">Three steps to a paperless classroom.</p>
+            <p className="text-lg text-slate-500">Three steps to a paperless check-in system.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12 relative">
             {/* Connection Lines (Desktop) */}
             <div className={`hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -z-10 ${howVisible ? 'animate-fade stagger-4' : 'reveal-hidden'}`}></div>
             
             {[
-              { step: '01', icon: QrCode, title: 'Teacher Generates', desc: 'The teacher creates a time-limited QR code for the class session.' },
-              { step: '02', icon: Shield, title: 'Student Scans', desc: 'Students scan the code using the Punctual app on their mobile devices.' },
-              { step: '03', icon: CheckCircle, title: 'Verified Instantly', desc: 'Attendance is logged, verified against enrollment, and ready for reports.' }
+              { step: '01', icon: QrCode, title: 'Manager Generates', desc: 'The manager creates a time-limited QR code for the work session or shift.' },
+              { step: '02', icon: Shield, title: 'Worker Scans', desc: 'Workers scan the code using the Punctual app on their mobile devices.' },
+              { step: '03', icon: CheckCircle, title: 'Verified Instantly', desc: 'Check-in is logged, verified against enrollment, and ready for exports.' }
             ].map((s, i) => (
               <div key={i} className={`flex flex-col items-center text-center group ${howVisible ? `animate-reveal stagger-${i + 1}` : 'reveal-hidden'}`}>
                 <div className="w-20 h-20 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center mb-8 shadow-xl relative z-10 group-hover:border-indigo-600 transition-colors duration-500">
@@ -350,10 +350,10 @@ const LandingPage = () => {
               <QrCode className="h-8 w-8" />
             </div>
             <h2 className="text-3xl font-black text-white mb-2">Punctual</h2>
-            <p className="text-slate-400 max-w-sm mx-auto mb-12">Elevating the classroom experience through smart technology.</p>
+            <p className="text-slate-400 max-w-sm mx-auto mb-12">Elevating the workforce experience through smart, friction-less technology.</p>
           </div>
           <div className="border-t border-slate-800 pt-10 text-slate-500 text-sm">
-            &copy; 2026 Punctual. Made with ❤️ by <a className='underline text-indigo-50' href="https://theyoungpioneers.com" target="_blank" rel="noopener noreferrer">The Young Pioneers</a> for Educators.
+            &copy; 2026 Punctual. Made with ❤️ by <a className='underline text-indigo-50' href="https://theyoungpioneers.com" target="_blank" rel="noopener noreferrer">The Young Pioneers</a> for Businesses.
           </div>
         </div>
       </footer>

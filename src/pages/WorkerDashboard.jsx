@@ -5,7 +5,7 @@ import { Layout, QrCode, LogOut, Clock, CheckCircle, AlertCircle, Users, Menu, X
 import { Html5Qrcode } from 'html5-qrcode';
 import { AuthContext } from '../context/AuthContext';
 
-const StudentDashboard = () => {
+const WorkerDashboard = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { logout } = useContext(AuthContext);
@@ -17,9 +17,9 @@ const StudentDashboard = () => {
 
   const NavLinks = () => (
     <>
-      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-3 mb-4 mt-6 md:mt-0">Student Menu</p>
+      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-3 mb-4 mt-6 md:mt-0">Worker Menu</p>
       <NavLink 
-        to="/student-dashboard" 
+        to="/worker-dashboard" 
         end
         onClick={() => setIsSidebarOpen(false)}
         className={({ isActive }) => `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`}
@@ -28,7 +28,7 @@ const StudentDashboard = () => {
         <span>Dashboard</span>
       </NavLink>
       <NavLink 
-        to="/student-dashboard/scan" 
+        to="/worker-dashboard/scan" 
         onClick={() => setIsSidebarOpen(false)}
         className={({ isActive }) => `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`}
       >
@@ -36,7 +36,7 @@ const StudentDashboard = () => {
         <span>Scan QR</span>
       </NavLink>
       <NavLink 
-        to="/student-dashboard/history" 
+        to="/worker-dashboard/history" 
         onClick={() => setIsSidebarOpen(false)}
         className={({ isActive }) => `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`}
       >
@@ -107,7 +107,7 @@ const StudentDashboard = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto p-4 md:p-8 relative pt-20 md:pt-8">
         <Routes>
-          <Route path="/" element={<StudentOverview />} />
+          <Route path="/" element={<WorkerOverview />} />
           <Route path="/scan" element={<Scanner />} />
           <Route path="/history" element={<History />} />
         </Routes>
@@ -116,19 +116,19 @@ const StudentDashboard = () => {
   );
 };
 
-const StudentOverview = () => {
+const WorkerOverview = () => {
   const [history, setHistory] = useState([]);
-  const [classes, setClasses] = useState([]);
+  const [sessions, setSessions] = useState([]);
   useEffect(() => {
     api.get('/attendance/history').then(res => setHistory(res.data));
-    api.get('/classes').then(res => setClasses(res.data));
+    api.get('/sessions').then(res => setSessions(res.data));
   }, []);
 
   return (
     <div className="animate-in fade-in duration-700 max-w-4xl mx-auto">
       <header className="mb-8 text-center md:text-left">
-        <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Student Dashboard</h1>
-        <p className="text-slate-500 font-medium mt-1 text-sm">Track your presence and attendance history.</p>
+        <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Worker Dashboard</h1>
+        <p className="text-slate-500 font-medium mt-1 text-sm">Track your presence and shift history.</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
@@ -139,7 +139,7 @@ const StudentOverview = () => {
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total</span>
           </div>
-          <h3 className="text-slate-500 font-bold text-xs tracking-wide">Total Attendances</h3>
+          <h3 className="text-slate-500 font-bold text-xs tracking-wide">Total Check-ins</h3>
           <p className="text-3xl font-black text-slate-800 mt-1">{history.length}</p>
         </div>
         <div className="card-premium p-5 md:p-6">
@@ -147,18 +147,18 @@ const StudentOverview = () => {
             <div className={`w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shadow-sm`}>
               <Users className="h-5 w-5" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Enrolled</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Assigned</span>
           </div>
-          <h3 className="text-slate-500 font-bold text-xs tracking-wide">My Classes</h3>
-          <p className="text-3xl font-black text-slate-800 mt-1">{classes.length}</p>
+          <h3 className="text-slate-500 font-bold text-xs tracking-wide">My Sessions</h3>
+          <p className="text-3xl font-black text-slate-800 mt-1">{sessions.length}</p>
         </div>
       </div>
 
-      {classes.length > 0 && (
+      {sessions.length > 0 && (
         <div className="mb-10 animate-in slide-in-from-bottom duration-500">
-          <h2 className="text-[10px] font-black uppercase tracking-tight text-slate-400 mb-4 px-2">Enrolled Classes</h2>
+          <h2 className="text-[10px] font-black uppercase tracking-tight text-slate-400 mb-4 px-2">Assigned Sessions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {classes.map(c => (
+            {sessions.map(c => (
               <div key={c._id} className="card-premium p-6 flex items-center justify-between group hover:bg-white transition-all">
                 <div>
                   <h3 className="font-black text-slate-800">{c.name}</h3>
@@ -178,8 +178,8 @@ const StudentOverview = () => {
           <h2 className="text-xl md:text-2xl font-black mb-3 flex items-center justify-center md:justify-start">
             <QrCode className="mr-2 h-6 w-6" /> Mark Attendance
           </h2>
-          <p className="text-indigo-100 mb-6 max-w-lg font-medium mx-auto md:mx-0 text-sm">Ready to scan your class QR code? Open the camera and hold it steady.</p>
-          <Link to="/student-dashboard/scan" className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center text-sm">
+          <p className="text-indigo-100 mb-6 max-w-lg font-medium mx-auto md:mx-0 text-sm">Ready to scan the session QR code? Open the camera and hold it steady.</p>
+          <Link to="/worker-dashboard/scan" className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-xl font-black shadow-2xl hover:scale-105 transition-all w-full md:w-auto justify-center text-sm">
             Open Scanner
           </Link>
         </div>
@@ -192,7 +192,7 @@ const StudentOverview = () => {
 
 
 const Scanner = () => {
-  const [status, setStatus] = useState({ type: '', message: '', notEnrolled: false, classId: '', className: '' });
+  const [status, setStatus] = useState({ type: '', message: '', notEnrolled: false, sessionId: '', sessionName: '' });
   const [joining, setJoining] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const scannerRef = useRef(null);
@@ -227,8 +227,8 @@ const Scanner = () => {
                   type: 'error', 
                   message: err.response.data.message,
                   notEnrolled: true,
-                  classId: err.response.data.classId,
-                  className: err.response.data.className
+                  sessionId: err.response.data.sessionId,
+                  sessionName: err.response.data.sessionName
                 });
               } else {
                 setStatus({ type: 'error', message: err.response?.data?.message || 'Invalid QR or already marked', notEnrolled: false });
@@ -263,18 +263,18 @@ const Scanner = () => {
     if (scannerRef.current && scannerRef.current.isScanning) {
       await scannerRef.current.stop().catch(() => {});
     }
-    navigate('/student-dashboard');
+    navigate('/worker-dashboard');
   };
 
-  const handleJoinClass = async () => {
+  const handleJoinSession = async () => {
     setJoining(true);
     try {
-      await api.post(`/classes/${status.classId}/join`);
-      setStatus({ type: 'success', message: `Successfully joined ${status.className}!`, notEnrolled: false });
+      await api.post(`/sessions/${status.sessionId}/join`);
+      setStatus({ type: 'success', message: `Successfully joined ${status.sessionName}!`, notEnrolled: false });
       // Redirect after a short delay
-      setTimeout(() => navigate('/student-dashboard'), 2000);
+      setTimeout(() => navigate('/worker-dashboard'), 2000);
     } catch (err) {
-      setStatus({ ...status, message: 'Failed to join class. Please try again.' });
+      setStatus({ ...status, message: 'Failed to join session. Please try again.' });
     } finally {
       setJoining(false);
     }
@@ -304,9 +304,9 @@ const Scanner = () => {
             
             {status.notEnrolled && (
               <div className="p-6 bg-indigo-50 rounded-2xl border-2 border-indigo-100 flex flex-col items-center animate-in slide-in-from-top duration-500">
-                <p className="text-indigo-900 font-bold text-center mb-4">Would you like to register for {status.className}?</p>
+                <p className="text-indigo-900 font-bold text-center mb-4">Would you like to register for {status.sessionName}?</p>
                 <button 
-                  onClick={handleJoinClass}
+                  onClick={handleJoinSession}
                   disabled={joining}
                   className="w-full btn-premium py-4 flex items-center justify-center"
                 >
@@ -315,7 +315,7 @@ const Scanner = () => {
                   ) : (
                     <Users className="h-5 w-5 mr-2" />
                   )}
-                  {joining ? 'Joining...' : 'Join Class Now'}
+                  {joining ? 'Joining...' : 'Join Session Now'}
                 </button>
               </div>
             )}
@@ -330,7 +330,7 @@ const Scanner = () => {
             </span>
           </div>
           <p className="text-slate-400 font-medium text-sm leading-relaxed px-4">
-            Position the class QR code within the frame to automatically mark your attendance.
+            Position the session QR code within the frame to automatically mark your presence.
           </p>
         </div>
       </div>
@@ -340,34 +340,34 @@ const Scanner = () => {
 
 const History = () => {
   const [history, setHistory] = useState([]);
-  const [classes, setClasses] = useState([]);
-  const [filterClass, setFilterClass] = useState('');
+  const [sessions, setSessions] = useState([]);
+  const [filterSession, setFilterSession] = useState('');
   const [filterDate, setFilterDate] = useState('');
 
   useEffect(() => {
     api.get('/attendance/history').then(res => setHistory(res.data));
-    api.get('/classes').then(res => setClasses(res.data));
+    api.get('/sessions').then(res => setSessions(res.data));
   }, []);
 
   const filteredHistory = history.filter(h => {
-    const matchesClass = filterClass ? h.class._id === filterClass : true;
+    const matchesSession = filterSession ? h.session._id === filterSession : true;
     const matchesDate = filterDate ? new Date(h.timestamp).toLocaleDateString() === new Date(filterDate).toLocaleDateString() : true;
-    return matchesClass && matchesDate;
+    return matchesSession && matchesDate;
   });
 
   return (
     <div className="max-w-4xl mx-auto pt-6">
-      <h1 className="text-3xl font-black text-slate-800 mb-8 tracking-tight text-center md:text-left">Attendance History</h1>
+      <h1 className="text-3xl font-black text-slate-800 mb-8 tracking-tight text-center md:text-left">Check-in History</h1>
       
       <div className="card-premium overflow-hidden border border-slate-100">
         <div className="p-6 bg-slate-50/50 border-b border-slate-100 flex flex-col md:flex-row gap-4">
           <select 
             className="input-mobile py-3! text-sm! flex-1"
-            value={filterClass}
-            onChange={e => setFilterClass(e.target.value)}
+            value={filterSession}
+            onChange={e => setFilterSession(e.target.value)}
           >
-            <option value="">All Classes</option>
-            {classes.map(c => (
+            <option value="">All Sessions</option>
+            {sessions.map(c => (
               <option key={c._id} value={c._id}>{c.name}</option>
             ))}
           </select>
@@ -384,7 +384,7 @@ const History = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50 text-slate-500 border-b border-slate-100">
-                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Class</th>
+                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Session</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Date</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Time</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Status</th>
@@ -393,7 +393,7 @@ const History = () => {
             <tbody className="divide-y divide-slate-50">
               {filteredHistory.length > 0 ? filteredHistory.map((h, i) => (
                 <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-5 font-bold text-slate-800">{h.class.name}</td>
+                  <td className="px-6 py-5 font-bold text-slate-800">{h.session.name}</td>
                   <td className="px-6 py-5 text-slate-600 font-medium">{new Date(h.timestamp).toLocaleDateString()}</td>
                   <td className="px-6 py-5 text-slate-600 font-medium">{new Date(h.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                   <td className="px-6 py-5 text-right md:text-left">
@@ -418,4 +418,4 @@ const History = () => {
   );
 };
 
-export default StudentDashboard;
+export default WorkerDashboard;

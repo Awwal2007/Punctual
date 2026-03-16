@@ -9,8 +9,8 @@ const Signup = () => {
     name: '',
     email: '',
     password: '',
-    role: params.get('role') || 'student',
-    studentId: ''
+    role: params.get('role') || 'worker',
+    workerId: ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('')
@@ -23,8 +23,8 @@ const Signup = () => {
     setError('');
     try {
       const user = await signup(formData);
-      if (user.role === 'teacher') navigate('/teacher-dashboard');
-      else navigate('/student-dashboard');
+      if (user.role === 'manager') navigate('/manager-dashboard');
+      else navigate('/worker-dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed');
     } finally {
@@ -43,7 +43,7 @@ const Signup = () => {
             <UserPlus className="h-8 w-8" />
           </div>
           <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight leading-tight">Create Account</h2>
-          <p className="text-slate-500 mt-1.5 font-medium text-sm">Join Punctual for smart attendance</p>
+          <p className="text-slate-500 mt-1.5 font-medium text-sm">Join Punctual for smart check-ins</p>
         </div>
 
         {error && <div className="mb-8 p-5 bg-red-50 text-red-600 rounded-2xl text-sm border border-red-100 font-bold animate-in slide-in-from-top duration-300">{error}</div>}
@@ -83,15 +83,15 @@ const Signup = () => {
             />
           </div>
 
-          {formData.role === 'student' && (
+          {formData.role === 'worker' && (
             <div className="relative group animate-in fade-in slide-in-from-top-2 duration-300">
               <UserPlus className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors pointer-events-none" />
               <input
                 type="text"
-                placeholder="Student ID / Matric Number"
+                placeholder="Worker ID / Employee ID"
                 className="input-mobile pl-14"
-                value={formData.studentId}
-                onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                value={formData.workerId}
+                onChange={(e) => setFormData({ ...formData, workerId: e.target.value })}
                 required
               />
             </div>
@@ -103,8 +103,8 @@ const Signup = () => {
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              <option value="student">I am a Student</option>
-              <option value="teacher">I am a Teacher</option>
+              <option value="worker">I am a Worker</option>
+              <option value="manager">I am a Manager</option>
             </select>
             <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
               <ChevronRight className="h-5 w-5 text-slate-400 rotate-90" />

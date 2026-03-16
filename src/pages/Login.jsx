@@ -17,8 +17,8 @@ const Login = () => {
     setError('');
     try {
       const user = await login(email, password);
-      if (user.role === 'teacher') navigate('/teacher-dashboard');
-      else navigate('/student-dashboard');
+      if (user.role === 'manager') navigate('/manager-dashboard');
+      else navigate('/worker-dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
@@ -37,7 +37,7 @@ const Login = () => {
             <LogIn className="h-8 w-8" />
           </div>
           <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight leading-tight">Welcome Back</h2>
-          <p className="text-slate-500 mt-1.5 font-medium text-sm">Continue your smart journey</p>
+          <p className="text-slate-500 mt-1.5 font-medium text-sm">Sign in to manage check-ins</p>
         </div>
 
         {error && <div className="mb-8 p-5 bg-red-50 text-red-600 rounded-2xl text-sm border border-red-100 font-bold animate-in slide-in-from-top duration-300">{error}</div>}
