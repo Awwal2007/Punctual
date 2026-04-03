@@ -38,13 +38,13 @@ const Signup = () => {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100/50 rounded-full blur-[100px] -z-10"></div>
 
       <div className="max-w-md w-full glass rounded-3xl p-6 md:p-8 shadow-2xl relative">
-        <div className="text-center mb-8">
+        <Link to='/' className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 text-white rounded-2xl mb-4 shadow-xl shadow-indigo-100 rotate-6 hover:rotate-0 transition-transform duration-500">
             <UserPlus className="h-8 w-8" />
           </div>
           <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight leading-tight">Create Account</h2>
           <p className="text-slate-500 mt-1.5 font-medium text-sm">Join Punctual for smart check-ins</p>
-        </div>
+        </Link>
 
         {error && <div className="mb-8 p-5 bg-red-50 text-red-600 rounded-2xl text-sm border border-red-100 font-bold animate-in slide-in-from-top duration-300">{error}</div>}
 
