@@ -200,7 +200,38 @@ const SessionsManager = ({ sessions, refresh }) => {
   const [expandedSession, setExpandedSession] = useState(null);
 
   useEffect(() => {
-    // ... (timer logic stays same)
+    if (!expiresAt) {
+      setTimeLeft('');
+      return;
+    }
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const expiryTime = new Date(expiresAt).getTime();
+      const distance = expiryTime - now;
+
+      if (distance <= 0) {
+        setTimeLeft('EXPIRED');
+        return true; // Indicates we should clear interval
+      } else {
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        setTimeLeft(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+        return false;
+      }
+    };
+
+    // Initial call to avoid 1-second delay
+    const isExpired = updateTimer();
+    if (isExpired) return;
+
+    const timer = setInterval(() => {
+      if (updateTimer()) {
+        clearInterval(timer);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [expiresAt]);
 
   const handleAddSession = async (e) => {

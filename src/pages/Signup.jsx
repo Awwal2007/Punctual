@@ -38,7 +38,7 @@ const Signup = () => {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-100/50 rounded-full blur-[100px] -z-10"></div>
 
       <div className="max-w-md w-full glass rounded-3xl p-6 md:p-8 shadow-2xl relative">
-        <Link to='/' className="text-center mb-8">
+        <Link to='/' className="text-center mb-8 block">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 text-white rounded-2xl mb-4 shadow-xl shadow-indigo-100 rotate-6 hover:rotate-0 transition-transform duration-500">
             <UserPlus className="h-8 w-8" />
           </div>
